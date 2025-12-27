@@ -1,0 +1,21 @@
+/**/
+#btnA {
+    font-size: 20px;
+    position:absolute; top:380px; left:2%; width:43%; height:60px; 
+}
+    
+#btnB {
+    font-size: 20px;
+    position:absolute; top:380px; left:73%; width:25%; height:60px; 
+}
+#answer{
+    font-size: 30px;
+    position:absolute; top:380px; left:46%; width:24%; height:55px;
+}
+#animals{
+    position:absolute; margin-top: 40%; margin-left: 35%; height: 150px;
+}
+#massage{
+    font-size: 80px;
+    text-align: center;
+}

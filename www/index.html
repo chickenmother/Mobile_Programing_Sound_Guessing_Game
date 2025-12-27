@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <audio id="moo" src="moo.mp3"></audio>
+    <audio id="chicken" src="chicken.mp3"></audio>
+    <audio id="bark" src="bark.mp3"></audio>
+    <audio id="gameover" src="gameover.mp3"></audio>
+    <audio id="win" src="congart.mp3"></audio>
+</head>
+<body>
+    <button id="btnA">Start!</button> 
+    <button id="btnB">Answer!</button> 
+    <input type="text" value="" id="answer"/>
+    <img id="animals"></img>
+    <div id="massage"></div>
+
+<script>
+    var moo = document.getElementById("moo");
+    var chicken = document.getElementById("chicken");
+    var bark = document.getElementById("bark");
+    var gameover = document.getElementById("gameover");
+    var win = document.getElementById("win");
+    var Cans;
+    var listLength;
+    var nextPlay;
+    var points;
+    var Cnum=0;
+    var start=false;
+    var count=0;
+    var userInput;
+    const answer = document.getElementById("answer");
+    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    let choice=["newb.jpg","ji.jpg","gou.jpg"];
+    animals.src="question.png";   
+
+    $(function() { 
+        $('#btnA').click(function(e) {
+            btnAClick(e);
+        });
+
+        $('#btnB').click(function(e) {
+            btnBClick(e);
+            });
+    });
+
+    $(function(){
+        setInterval(oSF, 1000);
+    });
+
+    function randNum(min,max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function btnAClick(e){
+        (async () => {
+            Cnum=0;
+            Cans=randNum(0,2);
+            console.log("Correct Ansewr :"+Cans);
+            animals.src=choice[Cans];
+            listLength=randNum(5,15);
+            console.log("List length:"+listLength);
+            $("#massage").html("Ready?");
+            await wait(3000);
+            $("#massage").html("Start!");
+            start=true;
+            document.getElementById("btnA").disabled = true;
+        })();
+    }
+
+    function oSF() {
+        nextPlay=randNum(0,2);
+        if(start){
+            if(nextPlay==0){
+                moo.play();
+            }else if(nextPlay==1){
+                chicken.play();
+            }else{
+                bark.play();
+            }
+            console.log(nextPlay);
+            if(Cans==nextPlay){
+                Cnum++;
+                console.log("correct count: "+Cnum);
+            }
+            count++;
+            console.log("exe count: "+count);
+        }
+            if (count>=listLength){
+                start=false;
+                $("#massage").html("Answer!");
+                count=0;
+            }
+    }
+
+    function btnBClick(e){
+        (async () => {
+            let userInput=answer.value;
+            console.log(userInput);
+            if(userInput==Cnum){
+                $("#massage").html("Correct!");
+                win.play();
+            }else{
+                $("#massage").html("WRONG!");
+                gameover.play();
+            }
+            await wait(3000);
+            $("#massage").html(" ");
+            animals.src="question.png";
+            document.getElementById("btnA").disabled = false;
+        })();
+    }
+    </script>
+</body>
+</html>
